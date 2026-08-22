@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Universal Games</string>
+    <string name="app_description">120Hz Performance Optimizer for Gaming</string>
+    
+    <!-- Game Names -->
+    <string name="game_qq_speed">QQ飞车</string>
+    <string name="game_speed_drifters">Speed Drifters</string>
+    
+    <!-- Performance Stats -->
+    <string name="stat_fps">FPS</string>
+    <string name="stat_cpu">CPU</string>
+    <string name="stat_gpu">GPU</string>
+    <string name="stat_ram">RAM</string>
+    <string name="stat_temperature">Temperature</string>
+    
+    <!-- Notifications -->
+    <string name="notification_title">Performance Monitor</string>
+    <string name="notification_text">Monitoring system performance</string>
+</resources>
