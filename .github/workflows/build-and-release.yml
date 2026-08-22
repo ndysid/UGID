@@ -112,9 +112,9 @@ jobs:
           fi
           ./gradlew assemble${BUILD_VARIANT} \
             -Pandroid.injected.signing.store.file="$(pwd)/app/keystore.jks" \
-            -Pandroid.injected.signing.store.password="${KEYSTORE_PASSWORD}" \
-            -Pandroid.injected.signing.key.alias="${KEY_ALIAS}" \
-            -Pandroid.injected.signing.key.password="${KEY_PASSWORD}" \
+            -Pandroid.injected.signing.store.password="$KEYSTORE_PASSWORD" \
+            -Pandroid.injected.signing.key.alias="$KEY_ALIAS" \
+            -Pandroid.injected.signing.key.password="$KEY_PASSWORD" \
             --stacktrace
 
       - name: Build Universal APK
@@ -297,4 +297,3 @@ jobs:
           echo "- [x] Battery Optimization" >> $GITHUB_STEP_SUMMARY
           echo "- [x] Thermal Management" >> $GITHUB_STEP_SUMMARY
           echo "- [x] Split APK Support" >> $GITHUB_STEP_SUMMARY
-          
