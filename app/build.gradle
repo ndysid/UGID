@@ -15,15 +15,15 @@ android {
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        
-        // Split APK configuration
-        splits {
-            abi {
-                enable true
-                reset()
-                include 'arm64-v8a', 'armeabi-v7a'
-                universalApk true
-            }
+    }
+
+    // Split APK configuration - ARM64 only
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'arm64-v8a'  // Only ARM64
+            universalApk true    // Creates universal APK too
         }
     }
 
@@ -47,9 +47,6 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-            
-            // Enable split APK for Play Store
-            splits.abi.enable = true
         }
         debug {
             debuggable true
