@@ -105,7 +105,12 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           chmod +x gradlew
-          ./gradlew assemble${{ matrix.abi == 'arm64-v8a' && 'Arm64V8aRelease' || 'ArmeabiV7aRelease' }} \
+          if [ "${{ matrix.abi }}" = "arm64-v8a" ]; then
+            BUILD_VARIANT="Arm64V8aRelease"
+          else
+            BUILD_VARIANT="ArmeabiV7aRelease"
+          fi
+          ./gradlew assemble${BUILD_VARIANT} \
             -Pandroid.injected.signing.store.file="$(pwd)/app/keystore.jks" \
             -Pandroid.injected.signing.store.password="${KEYSTORE_PASSWORD}" \
             -Pandroid.injected.signing.key.alias="${KEY_ALIAS}" \
