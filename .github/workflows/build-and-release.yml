@@ -28,7 +28,7 @@ on:
           - release
 
 env:
-  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false"
+  GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false
   ANDROID_HOME: /usr/local/android-sdk
 
 jobs:
