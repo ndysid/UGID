@@ -208,7 +208,7 @@ jobs:
           - Enhanced performance monitoring
           - Updated game optimizations
           - Fixed battery drain issues
-          EOF
+EOF
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -253,7 +253,7 @@ jobs:
           - Better FPS Stability
           - Reduced Battery Drain
           - Improved Thermal Management
-          EOF
+EOF
 
       - name: Upload to Play Store
         uses: r0adkll/upload-google-play@v1
