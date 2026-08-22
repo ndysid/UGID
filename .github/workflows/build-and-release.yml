@@ -297,3 +297,4 @@ jobs:
           echo "- [x] Battery Optimization" >> $GITHUB_STEP_SUMMARY
           echo "- [x] Thermal Management" >> $GITHUB_STEP_SUMMARY
           echo "- [x] Split APK Support" >> $GITHUB_STEP_SUMMARY
+          
