@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.universal.performance">
+
+    <!-- ============== NETWORK PERMISSIONS ============== -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+
+    <!-- ============== STORAGE PERMISSIONS ============== -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" 
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" 
+        tools:ignore="ScopedStorage" />
+
+    <!-- ============== SYSTEM PERMISSIONS ============== -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" 
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_LOGS" 
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.DUMP" 
+        tools:ignore="ProtectedPermissions" />
+    
+    <!-- ============== BATTERY & PERFORMANCE ============== -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" 
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    
+    <!-- ============== BACKGROUND SERVICES ============== -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.RUN_IN_BACKGROUND" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    
+    <!-- ============== DISPLAY & OVERLAY ============== -->
+    <uses-permission android:name="android.permission.SET_ANIMATION_SCALE" 
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SET_SCREEN_COMPATIBILITY" />
+    
+    <!-- ============== AUDIO PERMISSIONS ============== -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    
+    <!-- ============== VIBRATION ============== -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <!-- ============== CAMERA (Optional) ============== -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    
+    <!-- ============== BLUETOOTH ============== -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    
+    <!-- ============== PHONE STATE ============== -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PRECISE_PHONE_STATE" />
+    
+    <!-- ============== LOCATION ============== -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- ============== HARDWARE FEATURES ============== -->
+    <uses-feature
+        android:name="android.hardware.vulkan.version"
+        android:version="0x010300"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.opengles.aep"
+        android:required="false" />
+    
+    <!-- ============== APPLICATION ============== -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:name=".UniversalGamesApplication"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true"
+        android:allowNativeHeapPointerTagging="false"
+        tools:targetApi="31">
+
+        <!-- ============== MAIN ACTIVITY ============== -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize"
+            android:resizeableActivity="true"
+            android:screenOrientation="sensorLandscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- ============== PERFORMANCE MONITOR SERVICE ============== -->
+        <service
+            android:name=".PerformanceMonitorService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection|dataSync"
+            android:process=":performance" />
+
+        <!-- ============== FPS OVERLAY SERVICE ============== -->
+        <service
+            android:name=".FPSOverlayService"
+            android:exported="false"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
+            android:process=":overlay" />
+
+        <!-- ============== BATTERY OPTIMIZATION SERVICE ============== -->
+        <service
+            android:name=".BatteryOptimizerService"
+            android:exported="false"
+            android:foregroundServiceType="location"
+            android:process=":battery" />
+
+        <!-- ============== GAME OPTIMIZER SERVICE ============== -->
+        <service
+            android:name=".GameOptimizerService"
+            android:exported="true"
+            android:process=":game_optimizer">
+            <intent-filter>
+                <action android:name="com.universal.performance.GAME_OPTIMIZER" />
+            </intent-filter>
+        </service>
+
+        <!-- ============== RECEIVERS ============== -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".ScreenStateReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".BatteryReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ============== FILE PROVIDER ============== -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- ============== META-DATA ============== -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.universal.performance.REFRESH_RATE"
+            android:value="120" />
+
+        <meta-data
+            android:name="com.universal.performance.GAME_PACKAGES"
+            android:value="com.tencent.tmgp.speedmobile|com.garena.game.fctw" />
+
+        <meta-data
+            android:name="com.universal.performance.PERFORMANCE_MODE"
+            android:value="game" />
+
+    </application>
+
+</manifest>
