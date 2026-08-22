@@ -208,7 +208,6 @@ jobs:
           - Enhanced performance monitoring
           - Updated game optimizations
           - Fixed battery drain issues
-EOF
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
