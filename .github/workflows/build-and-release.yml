@@ -36,6 +36,13 @@ jobs:
       - name: Build Android App Bundle (AAB)
         run: ./gradlew bundleRelease --stacktrace
 
+      - name: List built files
+        run: |
+          echo "=== APK Files ==="
+          find app/build/outputs/apk -name "*.apk" -ls
+          echo "=== AAB Files ==="
+          find app/build/outputs/bundle -name "*.aab" -ls
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
@@ -65,9 +72,10 @@ jobs:
         with:
           files: release/*
           generate_release_notes: true
-        draft: false
-        prerelease: false
-        token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   play-store:
     name: Deploy to Google Play Store
@@ -81,6 +89,9 @@ jobs:
         with:
           name: UniversalGames-arm64-v8a
           path: playstore
+
+      - name: List AAB files
+        run: find playstore -name "*.aab" -ls
 
       - name: Upload to Play Store
         uses: r0adkll/upload-google-play@v1
